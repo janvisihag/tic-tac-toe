@@ -21,7 +21,7 @@ export default function Board() {
           return (
             <Square
               onClick={function () {
-                if (squares[idx]) return;
+                if (squares[idx] || winner) return;
                 setSquares((prevSquares) => {
                   prevSquares[idx] = xIsNext ? "X" : "O";
                   return [...prevSquares]; //cloning array
@@ -36,6 +36,16 @@ export default function Board() {
         })}
       </div>
       {winner ? <div>{winner} won the game.</div> : null}
+      <button
+        className="py-1.5 px-4 bg-blue-500 rounded-md text-white shadow-md shadow-blue-400 hover:bg-blue-300 hover:text-blue-900"
+        onClick={() => {
+          setSquares(Array(9).fill(null));
+          setWinner(null);
+          setXIsNext(true);
+        }}
+      >
+        Reset
+      </button>
     </>
   );
 }
